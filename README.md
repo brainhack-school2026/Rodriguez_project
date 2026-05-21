@@ -27,5 +27,19 @@ ADNI-processing/
 ├── data/                          # Raw data
 │
 └── README.md
+
+.
+├── LICENSE
+├── README.md
+├── data
+├── docs
+├── environment.yml
+├── outputs
+├── scripts
+├── setup.py
+└── src
+    ├── __init__.py
+    ├── config.py
+    └── metadata.py
 ```
 
