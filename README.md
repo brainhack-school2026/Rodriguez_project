@@ -94,7 +94,7 @@ Using **Jupyter notebooks** with clear structure and maybe implement a script at
 - [scikit-learn User Guide — Cross-validation](https://scikit-learn.org/stable/modules/cross_validation.html)
 - [XGBoost docs](https://xgboost.readthedocs.io/)
 - Chiotis et al. (2025) — The Role of Amyloid-β and Tau PET in the New Era of Alzheimer Disease Therapies. (in-depth explanation of Tau-PET)
-- [ADNI Methods papers](https://adni.loni.usc.edu/methods/)
+- [ADNI Methods papers]([https://adni.loni.usc.edu/methods/](https://adni.loni.usc.edu/help-faqs/adni-documentation/))
 ---
  
 ## Objectives
