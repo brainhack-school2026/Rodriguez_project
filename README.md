@@ -102,11 +102,11 @@ Using **Jupyter notebooks** with clear structure and maybe implement a script at
 By the end of this hackathon, I want to:
  
 1. **Build and evaluate a multi-modal ML pipeline** that predicts tau PET meta-ROI SUVR using real ADNI data locally and synthetic data publicly.
-2. **Run a modality ablation study** — compare models trained on each modality subset, different site data, and other variables, to quantify the value of each data type and test generalizability.
+2. **Run a modality ablation study** that compare models trained on each modality subset, different site data, and other variables, to quantify the value of each data type and test generalizability.
 3. **Implement nested cross-validation correctly**, avoiding data leakage.
-4. **Interpret results with SHAP** — identify which features are important for predictions globally and for individual participants.
-5. **Make everything reproducible** — anyone should be able to clone this repo, install the environment, and run every notebook using the synthetic data.
-6. **Document the learning process** — with stuff that worked and that didn't.
+4. **Interpret results with SHAP** to identify which features are important for predictions globally and for individual participants.
+5. **Make everything reproducible** so that anyone should be able to clone this repo, install the environment, and run every notebook using the synthetic data.
+6. **Document the learning process** with stuff that worked and that didn't.
 ---
  
 ## Deliverables
