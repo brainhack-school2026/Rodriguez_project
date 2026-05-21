@@ -48,13 +48,12 @@ The question I'm exploring: **can we predict an individual's tau PET meta-ROI SU
 | `scikit-learn` | ElasticNet, cross-validation (`KFold`, `GridSearchCV`), metrics (`r2_score`, `mean_absolute_error`) |
 | `xgboost` / `lightgbm` | Gradient boosting regressors |
 | `shap` | Feature importance, waterfall + beeswarm plots |
-| `pandas` / `numpy` | Data wrangling, imputation |
-| `scipy.stats` | Correlation analysis, distribution fitting for synthetic data |
+| `pandas` / `numpy` | Data handling and manipulation |
+| `scipy.stats` | Correlation analysis |
 | `matplotlib` / `seaborn` | Visualization |
 | `sklearn.preprocessing` | StandardScaler, normalization |
-| `sklearn.impute` | SimpleImputer, IterativeImputer (MICE) |
 | `sklearn.model_selection` | StratifiedKFold, cross_val_score, nested CV |
-| `sklearn.metrics` | R², MAE, RMSE |
+| `sklearn.metrics` | R², MAE, RMSE, MCC, accuracy, etc |
  
 ---
  
