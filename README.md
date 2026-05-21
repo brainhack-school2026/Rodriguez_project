@@ -5,41 +5,18 @@
   <br /><sub><b>Sebastian Rodriguez</b></sub>
 </a>
 ```
-ADNI-processing/
-├── src/                           # Core Python package
-│   ├── config.py                  # Configuration & constants
-│   └── metadata.py                # Metadata utilities
-│
-│	 
-│
-├── scripts/                       # Executable code
-│  
-│  
-│  
-│   
-│             
-│
-├── outputs/                       # Results
-│   └── logs/
-│
-│
-├── docs/                          # Detailed project documentation
-├── data/                          # Raw data
-│
-└── README.md
-
 .
 ├── LICENSE
 ├── README.md
-├── data
-├── docs
+├── data               # Raw data
+├── docs               # Detailed project documentation
 ├── environment.yml
-├── outputs
-├── scripts
+├── outputs            # Results
+├── scripts            # Executable code
 ├── setup.py
-└── src
+└── src                # Core Python package
     ├── __init__.py
-    ├── config.py
-    └── metadata.py
+    ├── config.py      # Configuration & constants
+    └── metadata.py    # Metadata utilities
 ```
 
