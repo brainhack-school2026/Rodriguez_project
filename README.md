@@ -6,7 +6,6 @@
 Hi, I'm Sebastian Rodriguez and I'm currently a Master's student at Université de Montréal. I am passionate about neuroscience and machine learning. This is my dog named Koko :D
 
 <a href="https://github.com/sebrm2">
-  <img src="https://avatars.githubusercontent.com/u/111035325?s=400&u=7e4efc0...&v=4" width="100px;" alt=""/>
   <img src="https://avatars.githubusercontent.com/u/111035325?s=400&u=7e4efc0...&v=4" width="400px;" alt=""/>
   <br /><sub><b>Sebastian Rodriguez</b></sub>
 </a>
