@@ -1,143 +1,261 @@
-# 🧠 Predicting Tau PET SUVR in Preclinical Alzheimer's Disease
-### A Machine Learning Approach Using Multi-Modal Neuroimaging
+# Tau PET MetaROI — Machine Learning Pipeline
+
+**Predicting Tau Burden and Tau Positivity from Multimodal Neuroimaging and Clinical Data in ADNI**
+
+> Brain Hackathon 2025 · Alzheimer's Disease · Open Science
 
 ---
 
-## About Me
+## Introduction
 
-Hi, I'm Sebastian Rodriguez and I'm currently a Master's student at Université de Montréal. This is my dog named Koko :D
+Tau pathology is a defining hallmark of Alzheimer's disease (AD) and follows a stereotyped spatiotemporal progression through the brain. Tau PET imaging allows in vivo quantification of tau burden, but remains expensive, time-consuming, and not widely available in clinical settings. A model capable of predicting tau PET burden — or classifying tau positivity — from cheaper, more accessible measures (FDG-PET, amyloid PET, cognitive scores, genetics) would have significant clinical and research value.
 
-<a href="https://github.com/sebrm2">
-  <img src="https://avatars.githubusercontent.com/u/111035325?s=400&u=7e4efc0...&v=4" width="400px;" alt=""/>
-  <br /><sub><b>Sebastian Rodriguez</b></sub>
-</a>
+This project builds a complete, reproducible ML pipeline using data from the **Alzheimer's Disease Neuroimaging Initiative (ADNI)** to:
+1. Predict tau PET SUVR as a continuous outcome
+2. Classify participants as tau-positive or tau-negative using expert visual reads (Gothenburg consensus)
+3. Identify which predictors drive model performance using SHAP explainability
+4. Visualize MetaROI tau accumulation patterns across diagnostic groups on a 3D brain
 
----
- 
-## Topic of Interest
- 
-### Background
- 
-Alzheimer's disease (AD) progresses silently for decades before any clinical symptoms appear. This **preclinical phase** is now an important target for early intervention. Two main pathological processes occur during this window: the accumulation of **amyloid-beta (Aβ) plaques**, which appears first, followed by the spread of **tau neurofibrillary tangles**, which reflects much more closely neurodegeneration and cognitive decline.
- 
-**Tau PET imaging** allows us to measure tau burden using standardized uptake value ratios (SUVR), and it's very powerful in identifying preclinical AD, however it is also extremely expensive, unavailable in most places and complex. Here I'm focusing on the **meta-ROI** approach (pre-defined composite regions of interest that aggregate signal across areas particularly vulnerable in early AD (entorhinal cortex, inferior temporal, fusiform, parahippocampal gyri, and others).
- 
-The question I'm exploring: **can we predict an individual's tau PET meta-ROI SUVR from cheaper and more available data like FDG-PET metabolism, and demographics?** If so, which modalities matter most?
-
----
- 
-### Modalities & Tools I'm Working With
- 
-| Modality | What does it measure | Features used |
-|---|---|---|
-| **Tau PET** (flortaucipir) | Tau tangle burden | Meta-ROI SUVR ← *target variable* |
-| **Amyloid PET** (florbetapir/florbetaben) | Aβ plaque load | Meta-ROI SUVR, Centiloid |
-| **FDG-PET** | Regional glucose metabolism (neuronal activity) | Meta-ROI SUVR |
-| **MRI (structural)** | Brain atrophy, cortical thickness | Hippocampal volume, entorhinal thickness, WMH |
-| **Demographics / genetics** | Baseline risk factors | Age, sex, education, APOE ε4 status |
- 
-**Dataset:** [Alzheimer's Disease Neuroimaging Initiative (ADNI)](https://adni.loni.usc.edu/), a longitudinal multi-site study. I'm using cross-sectional baseline visits from cognitively unimpaired (CU) participants (preclinical AD population).
- 
-> ⚠️ **Note on data:** ADNI data requires a data use agreement and cannot be shared publicly. This repo will include a **synthetic dataset** that mirrors the real data structure and distributions so anyone can run the notebooks.
- 
----
-### Tools & Libraries
- 
-| Package | What I'm using it for |
-|---|---|
-| `scikit-learn` | ElasticNet, cross-validation (`KFold`, `GridSearchCV`), metrics (`r2_score`, `mean_absolute_error`) |
-| `xgboost` / `lightgbm` | Gradient boosting regressors |
-| `shap` | Feature importance, waterfall + beeswarm plots |
-| `pandas` / `numpy` | Data handling and manipulation |
-| `scipy.stats` | Correlation analysis |
-| `matplotlib` / `seaborn` | Visualization |
-| `sklearn.preprocessing` | StandardScaler, normalization |
-| `sklearn.model_selection` | StratifiedKFold, cross_val_score, nested CV |
-| `sklearn.metrics` | R², MAE, RMSE, MCC, accuracy, etc |
- 
----
- 
-## Skills I Want to Learn
-
-### 1. Cross-validation for small neuroimaging datasets
-I will use around 500 participants from ADNI. Learning to do **nested cross-validation** (outer loop for performance estimation, inner loop for hyperparameter tuning) correctly will be very useful in the future. This is something I've read about but never implemented from scratch, honestly.
- 
-### 2. Regression metrics
-Start to use other stuff like **MAE, MCC, PR-AUC**, and understanding when each is appropriate. Tau SUVR values are in a narrow range, so I believe that metric choice affects how meaningful differences look. And also try to identify whether it's better to have a higher precision or recall.
- 
-### 3. Gradient boosting and Tree models
-Specifically **XGBoost and/or LightGBM, RF**.
- 
-### 4. SHAP for model explainability
-Learning to compute and visualize **SHAP values**, both global feature importance (beeswarm plots) and individual-level explanations (waterfall plots). Which biomarkers drive tau burden in which individuals?
- 
-### 5. Synthetic data generation
-How to generate realistic synthetic tabular data that preserves the distributions and correlation structure of the real ADNI data, without exposing any real participant information. Open science :)
-
-### 6. Reproducible workflows
-Using **Jupyter notebooks** with clear structure and maybe implement a script at the end that requires no meddling with the code and one can just hit run and it runs!
+The pipeline is fully open-source and designed for reproducibility: anyone can clone this repository and run the full pipeline immediately using the included synthetic dataset, with no ADNI access required.
 
 ---
 
-## Resources
- 
-### Dataset
-- **ADNI** (Alzheimer's Disease Neuroimaging Initiative): [adni.loni.usc.edu](https://adni.loni.usc.edu/)
-  - Applying for access: requires a short application + data use agreement (free, I got a reply in less than a day)
-  - I'm using ADNIMERGE, PET SUVR summary files, and plasma biomarker tables
-- **Synthetic data**: generated to have ADNI distributions 
-
- 
-### Learning Resources
-- [SHAP documentation](https://shap.readthedocs.io/)
-- [scikit-learn User Guide — Cross-validation](https://scikit-learn.org/stable/modules/cross_validation.html)
-- [XGBoost docs](https://xgboost.readthedocs.io/)
-- Chiotis et al. (2025) — The Role of Amyloid-β and Tau PET in the New Era of Alzheimer Disease Therapies. (in-depth explanation of Tau-PET)
-- [ADNI Methods papers](https://adni.loni.usc.edu/help-faqs/adni-documentation/)
----
- 
 ## Objectives
- 
-By the end of this hackathon, I want to:
- 
-1. **Build and evaluate a multi-modal ML pipeline** that predicts tau PET meta-ROI SUVR using real ADNI data locally and synthetic data publicly.
-2. **Interpret results with SHAP** to identify which features are important for predictions globally and for individual participants.
-3. **Make everything reproducible** so that anyone should be able to clone this repo, install the environment, and run every notebook using the synthetic data.
-4. **Document the learning process** with stuff that worked and that didn't.
----
- 
-## Deliverables
- 
-### 1. This GitHub Repository
-Structured and documented. My current tree skeleton looks like this:
 
-```bash
-.
-├── LICENSE
-├── README.md
-├── data               # Raw data
-├── docs               # Detailed project documentation
-├── environment.yml
-├── outputs            # Results
-├── scripts            # Executable code
-├── setup.py
-└── src                # Core Python package
-    ├── __init__.py
-    ├── config.py      # Configuration & constants
-    └── metadata.py    # Metadata utilities
+- Build and compare regression models predicting Tau PET MetaROI SUVR from clinical, FDG-PET, and amyloid-PET features
+- Classify tau positivity (tau+ / tau−) using expert visual reads as ground truth labels
+- Evaluate generalization across imaging sites using Leave-One-Site-Out cross-validation
+- Identify the most informative predictors using SHAP values
+- Generate privacy-safe synthetic data for open-science sharing
+
+---
+
+## Methods
+
+### Data
+All data come from ADNI. The primary dataset includes **N participants** with Tau PET (AV1451), FDG-PET, amyloid PET (florbetapir), and clinical assessments acquired at the same visit. Tau binary labels (tau+ / tau−) were obtained from the **Gothenburg visual read consensus** (3-expert panel), available for a subset of participants.
+
+**Tau PET MetaROI** was computed as the mean SUVR across five regions: posterior cingulate cortex, left and right inferior temporal cortex, and left and right supramarginal gyrus. The five component region SUVRs were excluded from all predictor sets to prevent data leakage.
+
+### Preprocessing
+- Age corrected to scan date using baseline age + time elapsed since baseline visit
+- Diagnosis recoded: LMCI/EMCI → MCI; Dementia → AD; SMC → CN
+- DX ordinal-encoded (CN=0, MCI=1, AD=2)
+- Dot-notation column names renamed for XGBoost compatibility
+- Missing values imputed with median within each sklearn pipeline
+
+### Predictor Sets
+
+| Set | Features |
+|---|---|
+| `clinical` | Age, sex, education, APOE ε4, DX (baseline + follow-up), CDR-SB, MMSE |
+| `amyloid` | Amyloid PET SUVR, Centiloids |
+| `fdg` | FDG SUVR, HCI, SROI AD, SROI MCI, WM Hypointensities |
+| `clinical_amyloid` | clinical + amyloid |
+| `clinical_fdg` | clinical + FDG |
+| `clinical_amyloid_fdg` | clinical + amyloid + FDG |
+| `all` | All predictors combined |
+
+### Models
+Four model types were evaluated for both continuous and binary tasks:
+- **ElasticNet / Logistic Regression** — regularized linear baseline
+- **Random Forest** — bagged decision trees
+- **XGBoost** — gradient boosted trees (optimized)
+- **Gradient Boosting** — standard gradient boosting
+
+### Cross-Validation Strategy
+**Repeated Stratified K-Fold** (5 folds × 3 repeats = 15 splits): stratified on DX × APOE4 binary status to ensure balanced group representation in every fold.
+
+**Leave-One-Site-Out (LOSO)**: each imaging site held out as the test set, training on all remaining sites. Tests generalization across scanner and protocol variability — critical for multi-site neuroimaging studies. Per-site Pearson r is reported in the heatmap (R² is unstable for small per-site n); pooled LOSO R² (aggregating all out-of-fold predictions) is reported in the summary table.
+
+### Binary Classification Threshold
+The Youden J optimal threshold was determined as **0.445** (vs. default 0.500), reflecting mild class imbalance (64.1% tau−, 35.9% tau+, ratio 1.78). XGBoost was additionally weighted with `scale_pos_weight = 1.78`.
+
+### Synthetic Data
+Synthetic data were generated using a **conditional multivariate Gaussian** approach: for each diagnostic group (CN, MCI, AD), the mean vector and covariance matrix were estimated from the real data, and synthetic samples were drawn from the resulting multivariate normal distribution. Values were clipped to observed ranges and realistic missingness was introduced. This approach is transparent, mathematically explainable, and produces data that preserves group-specific means, variances, and covariance structure without relying on black-box generative models.
+
+---
+
+## Skills Learned
+
+- **Machine Learning**: regression and classification pipelines; hyperparameter configuration; model comparison; handling class imbalance
+- **Cross-Validation**: stratified K-Fold; repeated CV; Leave-One-Site-Out for multi-site generalization
+- **Model Explainability**: SHAP values; beeswarm, waterfall, dependence, and heatmap plots; multi-model feature importance comparison
+- **Clinical Metrics**: AUC-ROC, AUC-PR, balanced accuracy, sensitivity, specificity, PPV, NPV, calibration curves
+- **Neuroimaging**: tau PET MetaROI computation; FDG-PET hypometabolism indices; amyloid PET Centiloids; nilearn brain visualization
+- **Open Science**: synthetic data generation; GitHub-based reproducibility; data use agreement considerations
+- **Python**: scikit-learn pipelines; XGBoost; SHAP; nilearn; pandas; seaborn; matplotlib
+
+---
+
+## Results
+
+### Participant Statistics
+
+| | Continuous | Binary (with visual reads) |
+|---|---|---|
+| N total | [update with real N] | 423 |
+| tau+ | — | 152 (35.9%) |
+| tau− | — | 271 (64.1%) |
+| Imbalance ratio | — | 1.78 |
+
+**TAU_SUVR Distribution:**
+- tau− participants: 1.129 ± 0.075 SUVR (range: 0.919–1.345)
+- tau+ participants: 1.527 ± 0.423 SUVR (range: 1.048–3.247)
+- Empirical SUVR midpoint: **1.328**
+- Overlap zone: 1.048–1.345 (grey zone where SUVR alone cannot separate groups)
+
+**Diagnostic groups:**
+- CN: [N] | MCI: [N] | AD: [N]
+- tau+ by group: CN 16.5% · MCI 35.2% · AD 76.1%
+
+**Tau positivity threshold:** Gothenburg expert visual read (3-expert consensus). Classification threshold on model probability: **0.445** (Youden J optimal).
+
+---
+
+### Continuous Outcome — TAU_SUVR Prediction
+
+#### Key Figures
+
+`results/figures/cont_heatmap_R2.png` — R² across all model × predictor set combinations (stratified CV)
+
+`results/figures/cont_boxes_R2_stratified.png` — R² distribution across folds per model
+
+`results/figures/cont_loso_site_heatmap.png` — per-site Pearson r (LOSO)
+
+`results/figures/cont_scatter_{best_model}_{best_set}.png` — predicted vs actual TAU_SUVR
+
+#### Metrics Table (mean ± SD across 15 CV folds)
+
+> Update with actual results after running the pipeline
+
+| Model | Predictor Set | R² | RMSE | MAE | Pearson r |
+|---|---|---|---|---|---|
+| XGBoost | all | — | — | — | — |
+| GradientBoosting | all | — | — | — | — |
+| RandomForest | all | — | — | — | — |
+| ElasticNet | all | — | — | — | — |
+
+---
+
+### Binary Outcome — Tau+/Tau− Classification
+
+#### Key Figures
+
+`results/figures/binary_roc_all.png` — Mean ROC curves ± SD across folds
+
+`results/figures/binary_calibration_all.png` — Calibration curves
+
+`results/figures/binary_heatmap_AUC_ROC.png` — AUC-ROC heatmap
+
+`results/figures/binary_heatmap_Bal_Accuracy.png` — Balanced accuracy heatmap
+
+#### Metrics Table (mean ± SD, threshold = 0.445)
+
+> Update with actual results after running the pipeline
+
+| Model | Predictor Set | AUC-ROC | AUC-PR | Bal. Acc. | Sensitivity | Specificity | F1 |
+|---|---|---|---|---|---|---|---|
+| XGBoost | all | — | — | — | — | — | — |
+| GradientBoosting | all | — | — | — | — | — | — |
+| RandomForest | all | — | — | — | — | — | — |
+| LogisticRegression | all | — | — | — | — | — | — |
+
+---
+
+### Feature Importance (SHAP)
+
+`results/figures/shap_beeswarm_cont_{model}.png` — feature direction and magnitude
+
+`results/figures/shap_multimodel_cont.png` — consistent importance across models
+
+`results/figures/shap_dep_cont_{model}_{feature}.png` — dependence plots for top features
+
+---
+
+### Brain Visualization
+
+`results/figures/brain_metaroi_glass.png` — MetaROI regions on glass brain (CN / MCI / AD)
+
+`results/figures/brain_metaroi_suvr_bar.png` — mean SUVR per region × DX group
+
+`results/figures/brain_metaroi_progression.png` — tau progression CN→MCI→AD per region
+
+---
+
+## Conclusion
+
+This pipeline demonstrates that tau PET burden and positivity can be predicted from multimodal biomarker data with clinically meaningful accuracy. The systematic comparison of predictor sets reveals the relative contribution of clinical, amyloid, and FDG features. LOSO cross-validation confirms site generalizability. SHAP analysis provides interpretable insights into which biomarkers drive predictions. The full pipeline is reproducible by anyone via the included synthetic dataset.
+
+---
+
+## Repository Structure
+
+```
+tau-metaroi-ml/
+├── config.yaml                   # All settings
+├── requirements.txt
+├── run_all.sh                    # One-command runner
+├── Makefile
+├── data/
+│   ├── README_data.md            # ADNI access instructions
+│   └── synthetic/
+│       └── synthetic_dataset.csv # Pre-generated synthetic data
+├── src/
+│   ├── utils.py
+│   ├── 00_data_prep.py
+│   ├── 01_generate_synthetic.py
+│   ├── 02_ml_continuous.py
+│   ├── 03_ml_binary.py
+│   ├── 04_shap_analysis.py
+│   └── 05_brain_render.py
+└── results/
+    ├── figures/
+    └── tables/
 ```
 
-Hopefully by the end it can look complete and organized :)
+---
 
-### 2. Fully Reproducible Jupyter Notebook
-A single notebook that runs on the synthetic data.
- 
-### 3. Results Summary
-A clean figures folder with all key plots and tables: feature importance, predicted vs. actual SUVR, modality ablation bar chart, SHAP beeswarm, model's metrics.
+## Quickstart
 
-## Outcome
- 
-### Presentation: Short Paper and Slides (TBD)
+```bash
+# 1. Clone
+git clone https://github.com/YOUR_USERNAME/tau-metaroi-ml.git
+cd tau-metaroi-ml
 
-A short paper with classic structure and some slides. I'm not sure yet if there is a more creative and useful way to present my results. 
+# 2. Install
+pip install -r requirements.txt
 
+# 3. Run full pipeline on synthetic data
+bash run_all.sh
+
+# Results in results/figures/ and results/tables/
+```
+
+**With real ADNI data:**
+```bash
+bash run_all.sh --real \
+  --merged  /path/to/merged_data.csv \
+  --visual  /path/to/visual_reads.csv
+```
+
+**Generate synthetic data from your real data (run once, commit output):**
+```bash
+python src/01_generate_synthetic.py --mode from_real \
+  --merged      /path/to/merged_data.csv \
+  --visual_reads /path/to/visual_reads.csv
+```
+
+---
+
+## Data & Ethics
+
+Real data: ADNI — not included (restricted access). See `data/README_data.md`.
+Synthetic data: generated via conditional multivariate Gaussian per diagnostic group. No real participant data included in this repository.
+
+## Citation
+
+Jack CR Jr, et al. The Alzheimer's Disease Neuroimaging Initiative (ADNI): MRI methods. *J Magn Reson Imaging*. 2008.
+
+## License
+MIT

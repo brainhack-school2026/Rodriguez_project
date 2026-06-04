@@ -1,0 +1,11 @@
+data/*.csv
+!data/synthetic/
+!data/README_data.md
+data/processed_data.csv
+data/binary_data.csv
+data/all_data.csv
+data/visual_reads.csv
+.venv/
+.vscode/
+src/__pycache__/
+presentation_script.md

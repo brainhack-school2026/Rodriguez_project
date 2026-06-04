@@ -1,0 +1,151 @@
+seed: 42
+project_name: tau-metaroi-ml
+
+paths:
+  data_dir:       data/
+  results_dir:    results/
+  figures_dir:    results/figures/
+  tables_dir:     results/tables/
+  processed_data: data/processed_data.csv
+  binary_data:    data/binary_data.csv
+  synthetic_data: data/synthetic/synthetic_dataset.csv
+
+real_data:
+  merged:       null   # set to path of your merged CSV
+  visual_reads: null   # set to path of Gothenburg visual reads CSV
+
+outcome:
+  continuous: TAU_SUVR
+  binary:     VISUAL_READ_BINARY
+
+id_col:   RID
+site_col: SITEID
+
+leakage_cols:
+  - CTX_POSTERIORCINGULATE_SUVR
+  - CTX_LH_INFERIORTEMPORAL_SUVR
+  - CTX_LH_SUPRAMARGINAL_SUVR
+  - CTX_RH_INFERIORTEMPORAL_SUVR
+  - CTX_RH_SUPRAMARGINAL_SUVR
+
+drop_cols:
+  - RID
+  - EXAMDATE
+  - EXAMDATE_BL
+  - AGE_BL
+  - TAU_METAROI_SUVR
+
+rename_cols:
+  SROI.AD:  SROI_AD
+  SROI.MCI: SROI_MCI
+
+ordinal_dx_map:
+  CN:  0
+  MCI: 1
+  AD:  2
+
+predictor_sets:
+  clinical:
+    - AGE_CORRECTED
+    - PTGENDER
+    - PTEDUCAT
+    - APOE4
+    - CDRSB
+    - MMSE
+
+  amyloid:
+    - SUMMARY_SUVR_AbPET
+    - CENTILOIDS_AbPET
+
+  fdg:
+    - MEAN_FDG
+    - HCI
+    - SROI_AD
+    - SROI_MCI
+
+  clinical_amyloid:
+    extends: [clinical, amyloid]
+
+  clinical_fdg:
+    extends: [clinical, fdg]
+
+  all:
+    extends: [clinical, amyloid, fdg]
+
+cv:
+  n_folds:       5
+  n_repeats:     3
+  min_site_size: 8
+
+models:
+  continuous:
+    ElasticNet:
+      alpha: 0.1
+      l1_ratio: 0.5
+      max_iter: 2000
+    RandomForestRegressor:
+      n_estimators: 300
+      max_depth: 6
+      min_samples_leaf: 5
+      n_jobs: -1
+    XGBRegressor:
+      n_estimators: 300
+      max_depth: 4
+      learning_rate: 0.05
+      subsample: 0.8
+      colsample_bytree: 0.8
+      verbosity: 0
+    GradientBoostingRegressor:
+      n_estimators: 300
+      max_depth: 4
+      learning_rate: 0.05
+      subsample: 0.8
+
+  binary:
+    LogisticRegression:
+      C: 1.0
+      max_iter: 2000
+      class_weight: balanced
+    RandomForestClassifier:
+      n_estimators: 300
+      max_depth: 6
+      min_samples_leaf: 5
+      class_weight: balanced
+      n_jobs: -1
+    XGBClassifier:
+      n_estimators: 300
+      max_depth: 4
+      learning_rate: 0.05
+      subsample: 0.8
+      colsample_bytree: 0.8
+      verbosity: 0
+      scale_pos_weight: 1
+    GradientBoostingClassifier:
+      n_estimators: 300
+      max_depth: 4
+      learning_rate: 0.05
+      subsample: 0.8
+
+shap:
+  background_samples: 100
+  n_top_features:     12
+
+binary_threshold: 0.445
+
+brain_render:
+  metaroi_regions:
+    PostCingulate:
+      col:  CTX_POSTERIORCINGULATE_SUVR
+      mni:  [0, -52, 26]
+    LH_InferiorTemporal:
+      col:  CTX_LH_INFERIORTEMPORAL_SUVR
+      mni:  [-56, -28, -20]
+    LH_Supramarginal:
+      col:  CTX_LH_SUPRAMARGINAL_SUVR
+      mni:  [-58, -44, 30]
+    RH_InferiorTemporal:
+      col:  CTX_RH_INFERIORTEMPORAL_SUVR
+      mni:  [56, -28, -20]
+    RH_Supramarginal:
+      col:  CTX_RH_SUPRAMARGINAL_SUVR
+      mni:  [58, -44, 30]
