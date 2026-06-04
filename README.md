@@ -110,12 +110,11 @@ Synthetic data was generated using a **conditional multivariate Gaussian** appro
 
 ### Continuous Outcome — TAU_SUVR Prediction
 
-#### Performance Across Folds
+#### Performance Across Models
 
-<p float="left">
-  <img src="results/figures/cont_boxes_R2_stratified.png" width="49%"/>
-  <img src="results/figures/cont_boxes_RMSE_stratified.png" width="49%"/>
-</p>
+<img src="results/figures/cont_boxes_R2_stratified.png" width="90%"/>
+
+<img src="results/figures/cont_boxes_RMSE_stratified.png" width="90%"/>
 
 #### Site Generalization (LOSO)
 
@@ -125,7 +124,7 @@ Synthetic data was generated using a **conditional multivariate Gaussian** appro
 
 <img src="results/figures/cont_scatter_RandomForestRegressor_all.png" width="55%"/>
 
-#### Metrics — All Predictor Set (mean ± SD across 15 CV folds)
+#### Metrics. All Predictor Set (mean ± SD across 15 CV folds)
 
 | Model | R² | RMSE | MAE | Pearson r | Spearman ρ |
 |---|---|---|---|---|---|
@@ -134,7 +133,7 @@ Synthetic data was generated using a **conditional multivariate Gaussian** appro
 | XGBoost | 0.457 ± 0.107 | 0.224 ± 0.029 | 0.135 ± 0.012 | 0.687 ± 0.068 | 0.578 ± 0.065 |
 | ElasticNet | 0.361 ± 0.048 | 0.245 ± 0.033 | 0.143 ± 0.012 | 0.644 ± 0.041 | 0.540 ± 0.062 |
 
-#### Metrics — By Predictor Set (Random Forest)
+#### Metrics. By Predictor Set (Random Forest)
 
 | Predictor Set | R² | RMSE | Pearson r |
 |---|---|---|---|
@@ -145,19 +144,19 @@ Synthetic data was generated using a **conditional multivariate Gaussian** appro
 | fdg | 0.229 ± 0.196 | 0.265 ± 0.029 | 0.520 ± 0.106 |
 | amyloid | 0.193 ± 0.087 | 0.275 ± 0.036 | 0.480 ± 0.063 |
 
-> **Key finding:** Amyloid PET provides the largest individual improvement over clinical features alone. Tree-based models outperform ElasticNet, indicating non-linear feature interactions matter.
+> **Key finding:** Amyloid PET provides the largest individual improvement over clinical features alone, but a model with ALL clinical, amyloid and PET predictors performs better than models with single or dual markers. Tree-based models outperform ElasticNet and other models.
 
 ---
 
-### Binary Outcome — Tau+/Tau− Classification
+### Binary Outcome. Tau+/Tau− Classification
 
-#### Performance Across Folds
+#### Performance Across Models
 
-<p float="left">
-  <img src="results/figures/binary_boxes_AUC_ROC.png" width="32%"/>
-  <img src="results/figures/binary_boxes_AUC_PR.png" width="32%"/>
-  <img src="results/figures/binary_boxes_Bal_Accuracy.png" width="32%"/>
-</p>
+<img src="results/figures/binary_boxes_AUC_ROC.png" width="90%"/>
+
+<img src="results/figures/binary_boxes_AUC_PR.png" width="90%"/>
+
+<img src="results/figures/binary_boxes_Bal_Accuracy.png" width="90%"/>
 
 #### ROC Curves and Calibration
 
@@ -166,7 +165,7 @@ Synthetic data was generated using a **conditional multivariate Gaussian** appro
   <img src="results/figures/binary_calibration_all.png" width="49%"/>
 </p>
 
-#### Metrics — All Predictor Set (mean ± SD, threshold = 0.445)
+#### Metrics. All Predictor Set (mean ± SD, threshold = 0.445)
 
 | Model | AUC-ROC | AUC-PR | Bal. Acc. | Sensitivity | Specificity | F1 | Brier |
 |---|---|---|---|---|---|---|---|
@@ -175,7 +174,7 @@ Synthetic data was generated using a **conditional multivariate Gaussian** appro
 | XGBoost | 0.898 ± 0.029 | 0.857 ± 0.034 | 0.833 ± 0.041 | 0.808 ± 0.071 | 0.857 ± 0.047 | 0.783 ± 0.049 | 0.128 ± 0.027 |
 | Gradient Boosting | 0.897 ± 0.032 | 0.855 ± 0.037 | 0.824 ± 0.039 | 0.779 ± 0.066 | 0.868 ± 0.044 | 0.774 ± 0.049 | 0.134 ± 0.029 |
 
-#### Metrics — By Predictor Set (Logistic Regression)
+#### Metrics. By Predictor Set (Logistic Regression)
 
 | Predictor Set | AUC-ROC | AUC-PR | Bal. Acc. | Sensitivity | Specificity |
 |---|---|---|---|---|---|
@@ -186,7 +185,7 @@ Synthetic data was generated using a **conditional multivariate Gaussian** appro
 | clinical | 0.835 ± 0.023 | 0.741 ± 0.034 | 0.741 ± 0.036 | 0.746 ± 0.061 | 0.737 ± 0.042 |
 | fdg | 0.783 ± 0.032 | 0.698 ± 0.053 | 0.719 ± 0.034 | 0.728 ± 0.058 | 0.710 ± 0.069 |
 
-> **Key finding:** Logistic Regression outperforms tree-based models (AUC-ROC 0.912), suggesting the tau+/tau− decision boundary is largely linear. Amyloid alone achieves AUC-ROC 0.890 — the strongest single predictor of tau positivity.
+> **Key finding:** Logistic Regression outperforms tree-based models (AUC-ROC 0.912), with maybe suggests that the tau+/tau− decision boundary is mainly linear. Amyloid alone achieves AUC-ROC 0.890: the strongest single predictor of tau positivity.
 
 ---
 
