@@ -208,22 +208,20 @@ Synthetic data was generated using a **conditional multivariate Gaussian** appro
 
 ## Conclusion
 
-This pipeline demonstrates that tau PET burden and positivity can be predicted from multimodal biomarker data with clinically meaningful accuracy. The systematic comparison of predictor sets reveals the relative contribution of clinical, amyloid, and FDG features. LOSO cross-validation confirms site generalizability. SHAP analysis provides interpretable insights into which biomarkers drive predictions. The full pipeline is reproducible by anyone via the included synthetic dataset.
+This project shows that tau PET burden and positivity can be predicted from multimodal biomarker data with clinically meaningful accuracy. The comparison of predictor sets shows the contribution of clinical, amyloid, and FDG predictors. LOSO cross-validation might confirm site generalizability. SHAP analysis provides interpretable insights into which biomarkers have the strongest power in predictions. The full pipeline is reproducible by anyone via the included synthetic dataset. I learned A LOT about machine learning and kept making mistakes, but everything turned out ok by the end. Next step: actual PET/MRI images as predictors???
 
 ---
 
 ## Repository Structure
 
 ```
-tau-metaroi-ml/
-├── config.yaml                   # All settings
+├── config.yaml                  
 ├── requirements.txt
-├── run_all.sh                    # One-command runner
+├── run_all.sh                   
 ├── Makefile
-├── data/
-│   ├── README_data.md            # ADNI access instructions
+├── data/         
 │   └── synthetic/
-│       └── synthetic_dataset.csv # Pre-generated synthetic data
+│       └── synthetic_dataset.csv 
 ├── src/
 │   ├── utils.py
 │   ├── 00_data_prep.py
@@ -234,17 +232,17 @@ tau-metaroi-ml/
 │   └── 05_brain_render.py
 └── results/
     ├── figures/
-    └── tables/
+    
 ```
 
 ---
 
-## Quickstart
+## How To Use
 
 ```bash
 # 1. Clone
-git clone https://github.com/YOUR_USERNAME/tau-metaroi-ml.git
-cd tau-metaroi-ml
+git clone https://github.com/YOUR_USERNAME/Rodriguez_project.git
+cd Rodriguez_project
 
 # 2. Install
 pip install -r requirements.txt
@@ -255,7 +253,7 @@ bash run_all.sh
 # Results in results/figures/ and results/tables/
 ```
 
-**With real ADNI data:**
+**With my real ADNI data:**
 ```bash
 bash run_all.sh --real \
   --merged  /path/to/merged_data.csv \
@@ -270,11 +268,6 @@ python src/01_generate_synthetic.py --mode from_real \
 ```
 
 ---
-
-## Data & Ethics
-
-Real data: ADNI — not included (restricted access). See `data/README_data.md`.
-Synthetic data: generated via conditional multivariate Gaussian per diagnostic group. No real participant data included in this repository.
 
 ## Citation
 
