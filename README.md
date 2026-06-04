@@ -1,7 +1,4 @@
-# Tau PET MetaROI — Machine Learning Pipeline
-
-**Predicting Tau Burden and Tau Positivity from Multimodal Neuroimaging and Clinical Data in ADNI**
-
+# Predicting Tau Burden and Tau Positivity from Multimodal Neuroimaging and Clinical Data in ADNI
 
 ---
 
