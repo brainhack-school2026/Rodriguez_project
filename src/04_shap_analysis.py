@@ -264,7 +264,7 @@ def main():
         try:
             sv, X_t = compute_shap(pipe, X_cont, X_cont, model_name, n_bg)
             importance_cont[model_name] = safe_importance(sv)
-            if model_name == list(models_c.keys())[0]:
+            if model_name == "RandomForestRegressor":
                 plot_beeswarm(sv, X_t, feats,
                               f"SHAP Summary — {model_name} (continuous)",
                               f"{figs_dir}shap_beeswarm_cont_{model_name}.png")
@@ -318,7 +318,7 @@ def main():
         try:
             sv, X_t = compute_shap(pipe, X_bin, X_bin, model_name, n_bg)
             importance_bin[model_name] = safe_importance(sv)
-            if model_name == list(models_b.keys())[0]:
+            if model_name == "LogisticRegression":
                 plot_beeswarm(sv, X_t, feats_bin,
                               f"SHAP Summary — {model_name} (binary)",
                               f"{figs_dir}shap_beeswarm_bin_{model_name}.png")
