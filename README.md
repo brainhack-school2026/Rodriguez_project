@@ -110,85 +110,94 @@ Synthetic data was generated using a **conditional multivariate Gaussian** appro
 
 ### Continuous Outcome — TAU_SUVR Prediction
 
-<p float="left">
-  <img src="results/figures/cont_heatmap_R2.png" width="49%"/>
-  <img src="results/figures/cont_boxes_R2_stratified.png" width="49%"/>
-</p>
+#### Performance Across Folds
 
 <p float="left">
-  <img src="results/figures/cont_scatter_RandomForestRegressor_all.png" width="49%"/>
-  <img src="results/figures/cont_loso_site_heatmap.png" width="49%"/>
+  <img src="results/figures/cont_boxes_R2_stratified.png" width="49%"/>
+  <img src="results/figures/cont_boxes_RMSE_stratified.png" width="49%"/>
 </p>
+
+#### Site Generalization (LOSO)
+
+<img src="results/figures/cont_loso_site_heatmap.png" width="80%"/>
+
+#### Predicted vs Actual TAU_SUVR — Best Model (Random Forest)
+
+<img src="results/figures/cont_scatter_RandomForestRegressor_all.png" width="55%"/>
 
 #### Metrics — All Predictor Set (mean ± SD across 15 CV folds)
 
 | Model | R² | RMSE | MAE | Pearson r | Spearman ρ |
 |---|---|---|---|---|---|
-| Random Forest | **0.504 ± 0.119** | 0.213 ± 0.027 | 0.125 ± 0.010 | **0.723 ± 0.070** | **0.608 ± 0.061** |
+| **Random Forest** | **0.504 ± 0.119** | **0.213 ± 0.027** | **0.125 ± 0.010** | **0.723 ± 0.070** | **0.608 ± 0.061** |
 | Gradient Boosting | 0.485 ± 0.087 | 0.218 ± 0.024 | 0.131 ± 0.012 | 0.710 ± 0.058 | 0.581 ± 0.074 |
 | XGBoost | 0.457 ± 0.107 | 0.224 ± 0.029 | 0.135 ± 0.012 | 0.687 ± 0.068 | 0.578 ± 0.065 |
 | ElasticNet | 0.361 ± 0.048 | 0.245 ± 0.033 | 0.143 ± 0.012 | 0.644 ± 0.041 | 0.540 ± 0.062 |
 
-#### Metrics — By Predictor Set (Random Forest, best model)
+#### Metrics — By Predictor Set (Random Forest)
 
 | Predictor Set | R² | RMSE | Pearson r |
 |---|---|---|---|
-| all | **0.504 ± 0.119** | 0.213 ± 0.027 | **0.723 ± 0.070** |
+| **all** | **0.504 ± 0.119** | **0.213 ± 0.027** | **0.723 ± 0.070** |
 | clinical_amyloid | 0.448 ± 0.117 | 0.225 ± 0.024 | 0.681 ± 0.080 |
 | clinical_fdg | 0.398 ± 0.170 | 0.233 ± 0.028 | 0.650 ± 0.110 |
-| clinical_amyloid_fdg | — | — | — |
 | clinical | 0.255 ± 0.190 | 0.260 ± 0.026 | 0.548 ± 0.130 |
-| amyloid | 0.193 ± 0.087 | 0.275 ± 0.036 | 0.480 ± 0.063 |
 | fdg | 0.229 ± 0.196 | 0.265 ± 0.029 | 0.520 ± 0.106 |
+| amyloid | 0.193 ± 0.087 | 0.275 ± 0.036 | 0.480 ± 0.063 |
 
-> **Key finding:** Amyloid PET provides the largest individual improvement over clinical features alone. FDG adds further but smaller gains. Tree-based models outperform ElasticNet, indicating non-linear feature interactions.
+> **Key finding:** Amyloid PET provides the largest individual improvement over clinical features alone. Tree-based models outperform ElasticNet, indicating non-linear feature interactions matter.
 
 ---
 
 ### Binary Outcome — Tau+/Tau− Classification
+
+#### Performance Across Folds
+
+<p float="left">
+  <img src="results/figures/binary_boxes_AUC_ROC.png" width="32%"/>
+  <img src="results/figures/binary_boxes_AUC_PR.png" width="32%"/>
+  <img src="results/figures/binary_boxes_Bal_Accuracy.png" width="32%"/>
+</p>
+
+#### ROC Curves and Calibration
 
 <p float="left">
   <img src="results/figures/binary_roc_all.png" width="49%"/>
   <img src="results/figures/binary_calibration_all.png" width="49%"/>
 </p>
 
-<p float="left">
-  <img src="results/figures/binary_heatmap_AUC_ROC.png" width="49%"/>
-  <img src="results/figures/binary_heatmap_Bal_Accuracy.png" width="49%"/>
-</p>
-
 #### Metrics — All Predictor Set (mean ± SD, threshold = 0.445)
 
 | Model | AUC-ROC | AUC-PR | Bal. Acc. | Sensitivity | Specificity | F1 | Brier |
 |---|---|---|---|---|---|---|---|
-| Logistic Regression | **0.912 ± 0.033** | **0.868 ± 0.038** | **0.835 ± 0.035** | 0.838 ± 0.064 | **0.831 ± 0.031** | **0.783 ± 0.039** | **0.116 ± 0.020** |
+| **Logistic Regression** | **0.912 ± 0.033** | **0.868 ± 0.038** | **0.835 ± 0.035** | 0.838 ± 0.064 | 0.831 ± 0.031 | **0.783 ± 0.039** | **0.116 ± 0.020** |
 | Random Forest | 0.907 ± 0.030 | 0.867 ± 0.035 | 0.840 ± 0.028 | 0.856 ± 0.050 | 0.824 ± 0.032 | 0.789 ± 0.032 | 0.117 ± 0.018 |
 | XGBoost | 0.898 ± 0.029 | 0.857 ± 0.034 | 0.833 ± 0.041 | 0.808 ± 0.071 | 0.857 ± 0.047 | 0.783 ± 0.049 | 0.128 ± 0.027 |
 | Gradient Boosting | 0.897 ± 0.032 | 0.855 ± 0.037 | 0.824 ± 0.039 | 0.779 ± 0.066 | 0.868 ± 0.044 | 0.774 ± 0.049 | 0.134 ± 0.029 |
 
-#### Metrics — By Predictor Set (Logistic Regression, best model)
+#### Metrics — By Predictor Set (Logistic Regression)
 
 | Predictor Set | AUC-ROC | AUC-PR | Bal. Acc. | Sensitivity | Specificity |
 |---|---|---|---|---|---|
-| all | **0.912 ± 0.033** | **0.868 ± 0.038** | **0.835 ± 0.035** | 0.838 ± 0.064 | 0.831 ± 0.031 |
-| clinical_amyloid | 0.906 ± 0.033 | 0.860 ± 0.042 | 0.842 ± 0.034 | 0.856 ± 0.059 | 0.829 ± 0.041 |
+| **all** | **0.912 ± 0.033** | **0.868 ± 0.038** | 0.835 ± 0.035 | 0.838 ± 0.064 | 0.831 ± 0.031 |
+| clinical_amyloid | 0.906 ± 0.033 | 0.860 ± 0.042 | **0.842 ± 0.034** | 0.856 ± 0.059 | 0.829 ± 0.041 |
 | amyloid | 0.890 ± 0.039 | 0.829 ± 0.063 | 0.839 ± 0.034 | **0.838 ± 0.060** | **0.839 ± 0.028** |
 | clinical_fdg | 0.852 ± 0.025 | 0.763 ± 0.029 | 0.786 ± 0.029 | 0.785 ± 0.057 | 0.786 ± 0.052 |
 | clinical | 0.835 ± 0.023 | 0.741 ± 0.034 | 0.741 ± 0.036 | 0.746 ± 0.061 | 0.737 ± 0.042 |
 | fdg | 0.783 ± 0.032 | 0.698 ± 0.053 | 0.719 ± 0.034 | 0.728 ± 0.058 | 0.710 ± 0.069 |
 
-> **Key finding:** Logistic Regression outperforms tree-based models for the binary task (AUC-ROC 0.912), suggesting the tau+/tau− decision boundary is largely linear when using these features. Amyloid alone achieves AUC-ROC 0.890, demonstrating the strong discriminative power of amyloid burden for tau positivity.
+> **Key finding:** Logistic Regression outperforms tree-based models (AUC-ROC 0.912), suggesting the tau+/tau− decision boundary is largely linear. Amyloid alone achieves AUC-ROC 0.890 — the strongest single predictor of tau positivity.
 
 ---
 
 ### Feature Importance (SHAP)
 
 <p float="left">
-  <img src="results/figures/shap_beeswarm_cont_ElasticNet.png" width="49%"/>
+  <img src="results/figures/shap_beeswarm_cont_RandomForestRegressor.png" width="49%"/>
   <img src="results/figures/shap_multimodel_cont.png" width="49%"/>
 </p>
 
-<img src="results/figures/shap_heatmap_cont_ElasticNet.png" width="80%"/>
+<img src="results/figures/shap_multimodel_bin.png" width="70%"/>
 
 ---
 
