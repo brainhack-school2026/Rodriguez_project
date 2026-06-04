@@ -70,7 +70,7 @@ Synthetic data was generated using a **conditional multivariate Gaussian** appro
 
 ---
 
-## Skills Learned
+## Skills I Learned
 
 - **Machine Learning**: regression and classification pipelines, hyperparameter configuration, model comparison, handling class imbalance
 - **Cross-Validation**: stratified K-Fold, repeated C, Leave-One-Site-Out for multi-site generalization
@@ -112,15 +112,15 @@ Synthetic data was generated using a **conditional multivariate Gaussian** appro
 
 #### Performance Across Models
 
-<img src="results/figures/cont_boxes_R2_stratified.png" width="90%"/>
+<img src="results/figures/cont_boxes_R2_stratified.png" width="100%"/>
 
-<img src="results/figures/cont_boxes_RMSE_stratified.png" width="90%"/>
+<img src="results/figures/cont_boxes_RMSE_stratified.png" width="100%"/>
 
 #### Site Generalization (LOSO)
 
-<img src="results/figures/cont_loso_site_heatmap.png" width="80%"/>
+<img src="results/figures/cont_loso_site_heatmap.png" width="50%"/>
 
-#### Predicted vs Actual TAU_SUVR — Best Model (Random Forest)
+#### Predicted vs Actual TAU_SUVR. Best Model (Random Forest)
 
 <img src="results/figures/cont_scatter_RandomForestRegressor_all.png" width="55%"/>
 
@@ -152,11 +152,11 @@ Synthetic data was generated using a **conditional multivariate Gaussian** appro
 
 #### Performance Across Models
 
-<img src="results/figures/binary_boxes_AUC_ROC.png" width="90%"/>
+<img src="results/figures/binary_boxes_AUC_ROC.png" width="100%"/>
 
-<img src="results/figures/binary_boxes_AUC_PR.png" width="90%"/>
+<img src="results/figures/binary_boxes_AUC_PR.png" width="100%"/>
 
-<img src="results/figures/binary_boxes_Bal_Accuracy.png" width="90%"/>
+<img src="results/figures/binary_boxes_Bal_Accuracy.png" width="100%"/>
 
 #### ROC Curves and Calibration
 
