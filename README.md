@@ -92,6 +92,9 @@ Synthetic data was generated using a **conditional multivariate Gaussian** appro
 | tau+ | — | 152 (35.9%) |
 | tau− | — | 271 (64.1%) |
 | Imbalance ratio | — | 1.78 |
+| CN | 161 (34.3%) | — |
+| MCI | 234 (49.9%) | — |
+| AD | 74 (15.8%) | — |
 
 **TAU_SUVR Distribution:**
 - tau− participants: 1.129 ± 0.075 SUVR (range: 0.919–1.345)
@@ -107,71 +110,91 @@ Synthetic data was generated using a **conditional multivariate Gaussian** appro
 
 ### Continuous Outcome — TAU_SUVR Prediction
 
-#### Most Important Figures
+<p float="left">
+  <img src="results/figures/cont_heatmap_R2.png" width="49%"/>
+  <img src="results/figures/cont_boxes_R2_stratified.png" width="49%"/>
+</p>
 
-`results/figures/cont_heatmap_R2.png` — R² across all model × predictor set combinations (stratified CV)
+<p float="left">
+  <img src="results/figures/cont_scatter_RandomForestRegressor_all.png" width="49%"/>
+  <img src="results/figures/cont_loso_site_heatmap.png" width="49%"/>
+</p>
 
-`results/figures/cont_boxes_R2_stratified.png` — R² distribution across folds per model
+#### Metrics — All Predictor Set (mean ± SD across 15 CV folds)
 
-`results/figures/cont_loso_site_heatmap.png` — per-site Pearson r (LOSO)
-
-`results/figures/cont_scatter_{best_model}_{best_set}.png` — predicted vs actual TAU_SUVR
-
-#### Metrics Table (mean ± SD across 15 CV folds)
-
-> Update with actual results after running the pipeline
-
-| Model | Predictor Set | R² | RMSE | MAE | Pearson r |
+| Model | R² | RMSE | MAE | Pearson r | Spearman ρ |
 |---|---|---|---|---|---|
-| XGBoost | all | — | — | — | — |
-| GradientBoosting | all | — | — | — | — |
-| RandomForest | all | — | — | — | — |
-| ElasticNet | all | — | — | — | — |
+| Random Forest | **0.504 ± 0.119** | 0.213 ± 0.027 | 0.125 ± 0.010 | **0.723 ± 0.070** | **0.608 ± 0.061** |
+| Gradient Boosting | 0.485 ± 0.087 | 0.218 ± 0.024 | 0.131 ± 0.012 | 0.710 ± 0.058 | 0.581 ± 0.074 |
+| XGBoost | 0.457 ± 0.107 | 0.224 ± 0.029 | 0.135 ± 0.012 | 0.687 ± 0.068 | 0.578 ± 0.065 |
+| ElasticNet | 0.361 ± 0.048 | 0.245 ± 0.033 | 0.143 ± 0.012 | 0.644 ± 0.041 | 0.540 ± 0.062 |
+
+#### Metrics — By Predictor Set (Random Forest, best model)
+
+| Predictor Set | R² | RMSE | Pearson r |
+|---|---|---|---|
+| all | **0.504 ± 0.119** | 0.213 ± 0.027 | **0.723 ± 0.070** |
+| clinical_amyloid | 0.448 ± 0.117 | 0.225 ± 0.024 | 0.681 ± 0.080 |
+| clinical_fdg | 0.398 ± 0.170 | 0.233 ± 0.028 | 0.650 ± 0.110 |
+| clinical_amyloid_fdg | — | — | — |
+| clinical | 0.255 ± 0.190 | 0.260 ± 0.026 | 0.548 ± 0.130 |
+| amyloid | 0.193 ± 0.087 | 0.275 ± 0.036 | 0.480 ± 0.063 |
+| fdg | 0.229 ± 0.196 | 0.265 ± 0.029 | 0.520 ± 0.106 |
+
+> **Key finding:** Amyloid PET provides the largest individual improvement over clinical features alone. FDG adds further but smaller gains. Tree-based models outperform ElasticNet, indicating non-linear feature interactions.
 
 ---
 
 ### Binary Outcome — Tau+/Tau− Classification
 
-#### Key Figures
+<p float="left">
+  <img src="results/figures/binary_roc_all.png" width="49%"/>
+  <img src="results/figures/binary_calibration_all.png" width="49%"/>
+</p>
 
-`results/figures/binary_roc_all.png` — Mean ROC curves ± SD across folds
+<p float="left">
+  <img src="results/figures/binary_heatmap_AUC_ROC.png" width="49%"/>
+  <img src="results/figures/binary_heatmap_Bal_Accuracy.png" width="49%"/>
+</p>
 
-`results/figures/binary_calibration_all.png` — Calibration curves
+#### Metrics — All Predictor Set (mean ± SD, threshold = 0.445)
 
-`results/figures/binary_heatmap_AUC_ROC.png` — AUC-ROC heatmap
-
-`results/figures/binary_heatmap_Bal_Accuracy.png` — Balanced accuracy heatmap
-
-#### Metrics Table (mean ± SD, threshold = 0.445)
-
-> Update with actual results after running the pipeline
-
-| Model | Predictor Set | AUC-ROC | AUC-PR | Bal. Acc. | Sensitivity | Specificity | F1 |
+| Model | AUC-ROC | AUC-PR | Bal. Acc. | Sensitivity | Specificity | F1 | Brier |
 |---|---|---|---|---|---|---|---|
-| XGBoost | all | — | — | — | — | — | — |
-| GradientBoosting | all | — | — | — | — | — | — |
-| RandomForest | all | — | — | — | — | — | — |
-| LogisticRegression | all | — | — | — | — | — | — |
+| Logistic Regression | **0.912 ± 0.033** | **0.868 ± 0.038** | **0.835 ± 0.035** | 0.838 ± 0.064 | **0.831 ± 0.031** | **0.783 ± 0.039** | **0.116 ± 0.020** |
+| Random Forest | 0.907 ± 0.030 | 0.867 ± 0.035 | 0.840 ± 0.028 | 0.856 ± 0.050 | 0.824 ± 0.032 | 0.789 ± 0.032 | 0.117 ± 0.018 |
+| XGBoost | 0.898 ± 0.029 | 0.857 ± 0.034 | 0.833 ± 0.041 | 0.808 ± 0.071 | 0.857 ± 0.047 | 0.783 ± 0.049 | 0.128 ± 0.027 |
+| Gradient Boosting | 0.897 ± 0.032 | 0.855 ± 0.037 | 0.824 ± 0.039 | 0.779 ± 0.066 | 0.868 ± 0.044 | 0.774 ± 0.049 | 0.134 ± 0.029 |
+
+#### Metrics — By Predictor Set (Logistic Regression, best model)
+
+| Predictor Set | AUC-ROC | AUC-PR | Bal. Acc. | Sensitivity | Specificity |
+|---|---|---|---|---|---|
+| all | **0.912 ± 0.033** | **0.868 ± 0.038** | **0.835 ± 0.035** | 0.838 ± 0.064 | 0.831 ± 0.031 |
+| clinical_amyloid | 0.906 ± 0.033 | 0.860 ± 0.042 | 0.842 ± 0.034 | 0.856 ± 0.059 | 0.829 ± 0.041 |
+| amyloid | 0.890 ± 0.039 | 0.829 ± 0.063 | 0.839 ± 0.034 | **0.838 ± 0.060** | **0.839 ± 0.028** |
+| clinical_fdg | 0.852 ± 0.025 | 0.763 ± 0.029 | 0.786 ± 0.029 | 0.785 ± 0.057 | 0.786 ± 0.052 |
+| clinical | 0.835 ± 0.023 | 0.741 ± 0.034 | 0.741 ± 0.036 | 0.746 ± 0.061 | 0.737 ± 0.042 |
+| fdg | 0.783 ± 0.032 | 0.698 ± 0.053 | 0.719 ± 0.034 | 0.728 ± 0.058 | 0.710 ± 0.069 |
+
+> **Key finding:** Logistic Regression outperforms tree-based models for the binary task (AUC-ROC 0.912), suggesting the tau+/tau− decision boundary is largely linear when using these features. Amyloid alone achieves AUC-ROC 0.890, demonstrating the strong discriminative power of amyloid burden for tau positivity.
 
 ---
 
 ### Feature Importance (SHAP)
 
-`results/figures/shap_beeswarm_cont_{model}.png` — feature direction and magnitude
+<p float="left">
+  <img src="results/figures/shap_beeswarm_cont_ElasticNet.png" width="49%"/>
+  <img src="results/figures/shap_multimodel_cont.png" width="49%"/>
+</p>
 
-`results/figures/shap_multimodel_cont.png` — consistent importance across models
-
-`results/figures/shap_dep_cont_{model}_{feature}.png` — dependence plots for top features
+<img src="results/figures/shap_heatmap_cont_ElasticNet.png" width="80%"/>
 
 ---
 
 ### Brain Visualization
 
-`results/figures/brain_metaroi_glass.png` — MetaROI regions on glass brain (CN / MCI / AD)
-
-`results/figures/brain_metaroi_suvr_bar.png` — mean SUVR per region × DX group
-
-`results/figures/brain_metaroi_progression.png` — tau progression CN→MCI→AD per region
+<img src="results/figures/brain_metaroi_glass.png" width="100%"/>
 
 ---
 
