@@ -268,7 +268,7 @@ bash run_all.sh --real \
   --visual  /path/to/visual_reads.csv
 ```
 
-**Generate synthetic data from your real data (run once, commit output):**
+**Generate synthetic data from your real data (run once only):**
 ```bash
 python src/01_generate_synthetic.py --mode from_real \
   --merged      /path/to/merged_data.csv \
@@ -280,6 +280,3 @@ python src/01_generate_synthetic.py --mode from_real \
 ## Citation
 
 Jack CR Jr, et al. The Alzheimer's Disease Neuroimaging Initiative (ADNI): MRI methods. *J Magn Reson Imaging*. 2008.
-
-## License
-MIT
