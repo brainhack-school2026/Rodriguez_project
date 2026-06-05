@@ -1,5 +1,8 @@
 # Predicting Tau Burden and Tau Positivity from Multimodal Neuroimaging and Clinical Data in ADNI
 
+
+📊 [Project Presentation](https://docs.google.com/presentation/d/1Mzhxvv9ys815rK25nMDP2DgMMcGG-r-mgC6_vdCn5wY/edit?usp=sharing)
+
 ---
 ## About Me
 
