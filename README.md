@@ -249,7 +249,7 @@ This project shows that tau PET burden and positivity can be predicted from mult
 
 ```bash
 # 1. Clone
-git clone https://github.com/YOUR_USERNAME/Rodriguez_project.git
+git clone git@github.com:brainhack-school2026/Rodriguez_project.git
 cd Rodriguez_project
 
 # 2. Install
