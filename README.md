@@ -274,6 +274,14 @@ cd Rodriguez_project
 
 # 2. Set up a virtual environment
 
+#For Linux/Mac:
+python -m venv .venv
+source .venv/bin/activate
+
+#For Windows:
+python -m venv .venv
+.venv\Scripts\activate
+
 # 3. Install
 pip install -r requirements.txt
 
