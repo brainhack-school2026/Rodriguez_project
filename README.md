@@ -9,11 +9,11 @@
 Hi, I'm Sebastian Rodriguez and I'm currently a Master's student at Université de Montréal. I am passionate about neuroscience and machine learning. This is my dog named Koko :D
 
 <a href="https://github.com/sebrm2">
-  <img src="https://avatars.githubusercontent.com/u/111035325?s=400&u=7e4efc0...&v=4" width="400px;" alt=""/>
+  <img src="https://avatars.githubusercontent.com/u/111035325?s=400&u=7e4efc0...&v=4" width="200px;" alt=""/>
   <br /><sub><b>Sebastian Rodriguez</b></sub>
 </a>
 
-## Introduction
+## Introduction/Background
 
 Alzheimer's disease (AD) is characterized by pathological accumulation of amyloid plaques and tau neurofibrillary tangles in the brain. Tau PET is one of the most accurate methods to identify AD pathology currently, as it allows in vivo quantification of tau burden. However, it is very expensive, time-consuming, and not widely available in clinical settings. 
 
@@ -35,10 +35,30 @@ The pipeline is fully open-source and designed for reproducibility: so anyone ca
 - Evaluate generalization across imaging sites using Leave-One-Site-Out cross-validation
 - Identify the most relevant predictors using SHAP values
 - Generate synthetic data for open-science sharing
+- Improve my programming skills
 
 ---
 
 ## Methods
+
+## Tools & Technologies
+
+* **Python**
+
+  * **scikit-learn** for ML pipelines, cross-validation, preprocessing, and evaluation metrics
+  * **XGBoost** for gradient-boosted tree models
+  * **SHAP** for model explainability and feature importance analysis
+  * **nilearn** for 3D brain visualization
+  * **pandas** & **NumPy** for data preprocessing, dataset merging, and metric computation
+  * **Matplotlib** & **Seaborn** for data visualization and figure generation
+  * **SciPy** for statistical tests and synthetic data distribution fitting
+
+* **Git & GitHub** for version control and open-science sharing
+
+* **Bash** for pipeline automation
+
+* **ADNI (Alzheimer’s Disease Neuroimaging Initiative)** as the data source
+
 
 ### Data
 All data comes from ADNI. The primary dataset includes **469 participants** with Tau PET, FDG-PET, amyloid PET, and clinical assessments acquired. Tau binary labels (tau+ / tau−) were obtained from the **Gothenburg visual read consensus** (3-expert panel), available for a subset of participants (423 participants).
@@ -74,19 +94,7 @@ Four model types were evaluated for both continuous and binary tasks:
 **Leave-One-Site-Out (LOSO)**: each imaging site held out as the test set, training on all remaining sites. Tests generalization across scanner and protocol variability.
 
 ### Synthetic Data
-Synthetic data was generated using a **conditional multivariate Gaussian** approach: for each diagnostic group (CN, MCI, AD), the mean vector and covariance matrix were estimated from the real data, and synthetic samples were drawn from the resulting multivariate normal distribution. Values were clipped to observed ranges for each predictor. This approach produces data that preserves group-specific means, variances, and covariance structure without relying on generative models.
-
----
-
-## Skills I Learned
-
-- **Machine Learning**: regression and classification pipelines, hyperparameter configuration, model comparison, handling class imbalance
-- **Cross-Validation**: stratified K-Fold, repeated C, Leave-One-Site-Out for multi-site generalization
-- **Model Explainability**: SHAP values, multi-model feature importance comparison
-- **Clinical Metrics**: AUC-ROC, AUC-PR, balanced accuracy, sensitivity, specificity, PPV, NPV, calibration curves
-- **Neuroimaging**: tau PET MetaROI computation, nilearn brain visualization
-- **Open Science**: synthetic data generation, GitHub reproducibility
-- **Python**: scikit-learn pipelines, XGBoost, SHAP, nilearn, pandas
+Synthetic data was generated using a **conditional multivariate Gaussian** approach: for each diagnostic group (CN, MCI, AD), the mean vector and covariance matrix were estimated from the real data, and synthetic samples were drawn from the resulting multivariate normal distribution. Values were clipped to observed ranges for each predictor. This approach produces data that preserves group-specific means, variances, and covariance structure without relying on generative models. Important: the plots and metrics will be lower using this synthetic data than the ones presented on this report, as the real ADNI data has a higher correlation than the one created by the synthetic algorithm.
 
 ---
 
@@ -214,6 +222,18 @@ Synthetic data was generated using a **conditional multivariate Gaussian** appro
 
 ---
 
+## Skills I Learned
+
+- **Machine Learning**: regression and classification pipelines, hyperparameter configuration, model comparison, handling class imbalance
+- **Cross-Validation**: stratified K-Fold, repeated C, Leave-One-Site-Out for multi-site generalization
+- **Model Explainability**: SHAP values, multi-model feature importance comparison
+- **Clinical Metrics**: AUC-ROC, AUC-PR, balanced accuracy, sensitivity, specificity, PPV, NPV, calibration curves
+- **Neuroimaging**: tau PET MetaROI computation, nilearn brain visualization
+- **Open Science**: synthetic data generation, GitHub reproducibility
+- **Python**: scikit-learn pipelines, XGBoost, SHAP, nilearn, pandas
+
+---
+
 ## Conclusion
 
 This project shows that tau PET burden and positivity can be predicted from multimodal biomarker data with clinically meaningful accuracy. The comparison of predictor sets shows the contribution of clinical, amyloid, and FDG predictors. LOSO cross-validation might confirm site generalizability. SHAP analysis provides interpretable insights into which biomarkers have the strongest power in predictions. The full pipeline is reproducible by anyone via the included synthetic dataset. I learned A LOT about machine learning and kept making mistakes, but everything turned out ok by the end. Next step: actual PET/MRI images as predictors???
@@ -252,23 +272,25 @@ This project shows that tau PET burden and positivity can be predicted from mult
 git clone git@github.com:brainhack-school2026/Rodriguez_project.git
 cd Rodriguez_project
 
-# 2. Install
+# 2. Set up a virtual environment
+
+# 3. Install
 pip install -r requirements.txt
 
-# 3. Run full pipeline on synthetic data
+# 4. Run full pipeline on synthetic data (IMPORTANT: you won't run the 01_generate_synthetic.py nor the 05_brain_render.py scripts)
 bash run_all.sh
 
 # Results in results/figures/ and results/tables/
 ```
 
-**With my real ADNI data:**
+**With the real ADNI data:**
 ```bash
 bash run_all.sh --real \
   --merged  /path/to/merged_data.csv \
   --visual  /path/to/visual_reads.csv
 ```
 
-**Generate synthetic data from your real data (run once only):**
+**If you want to generate synthetic data from your real data (run once only):**
 ```bash
 python src/01_generate_synthetic.py --mode from_real \
   --merged      /path/to/merged_data.csv \
