@@ -296,9 +296,8 @@ python src/01_generate_synthetic.py --mode from_real \
   --merged      /path/to/merged_data.csv \
   --visual_reads /path/to/visual_reads.csv
 ```
-
 ---
 
-## Citation
+## References
 
 Jack CR Jr, et al. The Alzheimer's Disease Neuroimaging Initiative (ADNI): MRI methods. *J Magn Reson Imaging*. 2008.
